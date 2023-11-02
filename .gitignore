@@ -1,5 +1,39 @@
-# Created by https://www.toptal.com/developers/gitignore/api/csharp,unity,visualstudio,macos,xcode
-# Edit at https://www.toptal.com/developers/gitignore?templates=csharp,unity,visualstudio,macos,xcode
+# Created by https://www.toptal.com/developers/gitignore/api/c++,csharp,visualstudio,unity
+# Edit at https://www.toptal.com/developers/gitignore?templates=c++,csharp,visualstudio,unity
+
+### C++ ###
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
 
 ### Csharp ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -78,9 +112,7 @@ StyleCopReport.xml
 *_h.h
 *.ilk
 *.meta
-*.obj
 *.iobj
-*.pch
 *.pdb
 *.ipdb
 *.pgc
@@ -399,39 +431,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-### macOS ###
-# General
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-### macOS Patch ###
-# iCloud generated files
-*.icloud
-
 ### Unity ###
 # This .gitignore file should be placed at the root of your Unity project directory
 #
@@ -484,7 +483,6 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
-*.app
 
 # Crashlytics generated file
 crashlytics-build.properties
@@ -495,23 +493,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-
-### Xcode ###
-## User settings
-xcuserdata/
-
-## Xcode 8 and earlier
-*.xcscmblueprint
-*.xccheckout
-
-### Xcode Patch ###
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcodeproj/project.xcworkspace/
-!*.xcworkspace/contents.xcworkspacedata
-/*.gcno
-**/xcshareddata/WorkspaceSettings.xcsettings
 
 ### VisualStudio ###
 
@@ -694,4 +675,4 @@ xcuserdata/
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
-# End of https://www.toptal.com/developers/gitignore/api/csharp,unity,visualstudio,macos,xcode
+# End of https://www.toptal.com/developers/gitignore/api/c++,csharp,visualstudio,unity
