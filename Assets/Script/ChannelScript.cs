@@ -5,54 +5,34 @@ using UnityEngine.UI;
 
 public class ChannelScript : MonoBehaviour
 {
-    public ProudChatComponent pchatComponent;
-
-    public GameObject createChannelPanel;
     public InputField channelInput;
 
-    public Button channelButton;
-    public Button enterButton;
+    public Button chanelButton;
 
-    private enum Channel
-    {
-        currentChannel,
-        newChannel,
-    }
+    // 추가할 채널의 패널을 추가하는 버튼
+    public Button plusChannelButton;
 
-    private void ActiveChannel(Channel channel)
-    {
-        switch(channel)
-        {
-            case Channel.currentChannel:
-                createChannelPanel.SetActive(false);
-                break;
-
-            case Channel.newChannel:
-                createChannelPanel.SetActive(true);
-                break;
-        }
-    }
+    private string channelName;
     // Start is called before the first frame update
     void Start()
     {
-        channelButton.onClick.AddListener(() => ActiveChannel(Channel.newChannel));
-        enterButton.onClick.AddListener(ChannelChange);
+        chanelButton.onClick.AddListener(AccessChannel);
+        plusChannelButton.onClick.AddListener(PlusChannel);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AccessChannel()
     {
-        
+        if(channelInput.text != string.Empty)
+        {
+            ChattingManager.Instance.SetChannel = channelInput.text;
+
+            ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.currentChannel);
+        }
     }
 
-    private void ChannelChange()
+
+    public void PlusChannel()
     {
-        string newChannelKey = channelInput.text;
-        //현재 채널의 키를 구해와야 함
-        pchatComponent.Leave_Channel("ALL");
-
-        pchatComponent.AddChannel(newChannelKey);
-
-        ActiveChannel(Channel.currentChannel);
+        ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.addChannelPanel);
     }
 }

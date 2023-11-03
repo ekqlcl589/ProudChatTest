@@ -38,7 +38,7 @@ public class ProudChatComponent : MonoBehaviour
 
         //기본적으로 ALL이라는 채널에 가입합니다.
         //변경하시거나 삭제해도 무방합니다.
-        AddChannel("ALL");
+        AddChannel(ChattingManager.Instance.SetChannel);
     }
 
     /// <summary>
@@ -110,8 +110,10 @@ public class ProudChatComponent : MonoBehaviour
 
         //ChatClient를 서버와 연결하기 위한 Init함수
         //유저는 직접 이 부분을 작성을 하셔야 합니다.
+
         //m_ChatClient.Init("계정 UUID", "프로젝트 UUID", "고유한 식별 값(고유한 닉네임 , 고유한 넘버링)", ChatClientInitComplete);
-        m_ChatClient.Init("fa2b9052-f2fd-4124-9dc8-245179b65a86", "fc5e50ed-0a5f-4e48-95ec-79cf6f42b98f", "DooD", ChatClientInitComplete);
+        m_ChatClient.Init("8b7c358a-04a9-49f2-afab-eb443114ba14", "eb39b2f2-e69c-4d10-acac-2e09d27d519a", ChattingManager.Instance.SetNickname /*"DooD"*/, ChatClientInitComplete); ;
+        
     }
 
     void Update()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
+using static ChatScript;
 using static Proud.ChatClient;
 
 public class ChatScript : MonoBehaviour
@@ -10,39 +11,37 @@ public class ChatScript : MonoBehaviour
     public ProudChatComponent pchatComponent;
     public InputField inputMessage;
 
+    public InputField whisperMessage;
+
+    public InputField addChannelInput;
+
     // 채널 키를 어떻게 받아올 지 고민해봐야 함
-    private string channelKey = "ALL";
+    //private string channelKey = "ALL";
+    private string channelKey;
+    private string userNickname;
 
     public Button chatbutton;
 
+    // 진짜 채널에 입장하는 버튼
+    public Button addChanelButton;
 
-    // 잠깐 테스트
+
     public GameObject textPrefab; // text 정보가 담긴 생성될 ui
     private GameObject newTextObject; // textPrefab을 통해 생성될 text
     public RectTransform Content; // 생성될 위치
-    //
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        ButtonEvent();
-        
-        pchatComponent.m_ChannelMsg_Response_Event.AddListener(PopulateChannelMsg);
-        pchatComponent.m_SendMsg_Response_Event.AddListener(PopulateMsg);
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public delegate void OnChatType();
+    public OnChatType onChatType;
+
+    private bool isWhisper = false;
 
     private void ButtonEvent()
     {
-        if(chatbutton == null)
+        if (chatbutton == null)
         {
             GameObject button = GameObject.Find("msgSendButton");
-            chatbutton = button.GetComponent<Button>();           
+            chatbutton = button.GetComponent<Button>();
         }
         else
         {
@@ -54,22 +53,34 @@ public class ChatScript : MonoBehaviour
         }
     }
 
+    private void ChattingType()
+    {
+        onChatType.Invoke();
+
+        if (!isWhisper)
+        {
+            ButtonEvent();
+        }
+        else
+        {
+            UserChat();
+        }
+    }
     private void ChannelChat()
     {
         pchatComponent.Send_ChannelMsg(channelKey, inputMessage.text);
 
         inputMessage.text = string.Empty;
-        //if(uniqueId == string.Empty)
-        //{
-        //}
-        //else
-        //{
-        //    pchatComponent.Send_Msg(uniqueId, inputMessage.text);
-        //    inputMessage.text = string.Empty;
-
-        //}
     }
 
+    private void UserChat()
+    {
+        pchatComponent.Send_Msg(userNickname, inputMessage.text);
+
+        inputMessage.text = string.Empty;
+    }
+
+    // 여기 인자값들 개인메세지 까지 해보고 바꾸던지 해야함, 하지만 지금은 출력 잘 되는 중
     private void PopulateChannelMsg(string Channel, string uniqueID, string message)
     {
         newTextObject = (GameObject)Instantiate(textPrefab, Content.transform);
@@ -94,4 +105,42 @@ public class ChatScript : MonoBehaviour
         texts[1].text = message;
 
     }
+
+    private void UpdateChannelKey()
+    {
+        channelKey = ChattingManager.Instance.SetChannel;
+
+        pchatComponent.AddChannel(channelKey);
+    }
+
+    public void AddChannel()
+    {
+        if (addChannelInput.text != string.Empty)
+        {
+            ChattingManager.Instance.SetChannel = addChannelInput.text;
+
+            channelKey = ChattingManager.Instance.SetChannel;
+
+            pchatComponent.AddChannel(channelKey);
+
+            ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.currentChannel);
+        }
+    }
+
+    private void Awake()
+    {
+        // 채널 키 를 받으면 업데이트 하는 것을 채널 스크립트에서 만들어서 이벤트로 넘겨준다?
+
+        channelKey = ChattingManager.Instance.SetChannel;
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        ButtonEvent();
+        pchatComponent.m_ChannelMsg_Response_Event.AddListener(PopulateChannelMsg);
+        pchatComponent.m_SendMsg_Response_Event.AddListener(PopulateMsg);
+        addChanelButton.onClick.AddListener(AddChannel);
+
+    }
+
 }
