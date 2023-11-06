@@ -12,7 +12,6 @@ public class ChannelScript : MonoBehaviour
     // 추가할 채널의 패널을 추가하는 버튼
     public Button plusChannelButton;
 
-    private string channelName;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +19,7 @@ public class ChannelScript : MonoBehaviour
         plusChannelButton.onClick.AddListener(PlusChannel);
     }
 
-    public void AccessChannel()
+    private void AccessChannel()
     {
         if(channelInput.text != string.Empty)
         {
@@ -31,7 +30,7 @@ public class ChannelScript : MonoBehaviour
     }
 
 
-    public void PlusChannel()
+    private void PlusChannel()
     {
         ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.addChannelPanel);
     }

@@ -39,6 +39,7 @@ public class ProudChatComponent : MonoBehaviour
         //기본적으로 ALL이라는 채널에 가입합니다.
         //변경하시거나 삭제해도 무방합니다.
         AddChannel(ChattingManager.Instance.SetChannel);
+        //AddChannel("ALL");
     }
 
     /// <summary>

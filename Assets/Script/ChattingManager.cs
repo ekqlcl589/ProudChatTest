@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -41,6 +42,23 @@ public class ChattingManager : MonoBehaviour
         {
             if(value != string.Empty)
                 channel = value;
+        }
+    }
+
+    private bool isWhisper = false;
+
+    public bool IsWhisper
+    {
+        get 
+        {
+            return isWhisper; 
+        }
+        set
+        {
+            isWhisper = !isWhisper;
+
+            isWhisper = value;
+
         }
     }
     public enum Channel

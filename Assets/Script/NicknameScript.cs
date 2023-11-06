@@ -22,7 +22,7 @@ public class NicknameScript : MonoBehaviour
 
         //newNickname = nicknamelInput.text;
 
-        ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.accessPanel);
+        ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.currentChannel);
 
     }   
 
