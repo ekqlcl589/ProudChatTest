@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static ChatScript;
 using static Proud.ChatClient;
@@ -25,7 +26,6 @@ public class ChatScript : MonoBehaviour
 
     public Button whisperButton;
 
-
     public GameObject textPrefab; // text 정보가 담긴 생성될 ui
     private GameObject newTextObject; // textPrefab을 통해 생성될 text
     public RectTransform Content; // 생성될 위치
@@ -37,7 +37,6 @@ public class ChatScript : MonoBehaviour
 
         //chatbutton.onClick.AddListener(() => pchatComponent.Send_ChannelMsg(channelKey, inputMessage.text));
     }
-
 
     private void ChattingType()
     {
@@ -113,11 +112,18 @@ public class ChatScript : MonoBehaviour
     void Start()
     {
         ButtonEvent();
-        pchatComponent.AddChannel(ChattingManager.Instance.SetChannel);
+        //pchatComponent.AddChannel(ChattingManager.Instance.SetChannel);
         pchatComponent.m_ChannelMsg_Response_Event.AddListener(PopulateChannelMsg);
         pchatComponent.m_SendMsg_Response_Event.AddListener(PopulateMsg);
         addChanelButton.onClick.AddListener(AddChannel);
 
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Return)) 
+        {
+            ChattingType();
+        }
+    }
 }

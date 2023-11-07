@@ -2,11 +2,13 @@
 using ProudChat;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using static Proud.ChatClient;
 
 namespace Proud
@@ -56,7 +58,7 @@ namespace Proud
 
         public SendMsg_Response SendMsg_ResponseDelegate
         {
-            set { if(value != null) sendMsg_ResponseDelegate = value;}
+            set { if (value != null) sendMsg_ResponseDelegate = value; }
         }
 
         private void InitStub()
@@ -121,7 +123,7 @@ namespace Proud
         {
             netClient.FrameMove();
 
-            if(true == isReconnect)
+            if (true == isReconnect)
             {
                 connectionState = netClient.GetServerConnectionState(state);
                 if (connectionState == ConnectionState.ConnectionState_Disconnecting)
@@ -132,19 +134,19 @@ namespace Proud
             }
         }
 
-        private bool Login_Response(Nettention.Proud.HostID remote, Nettention.Proud.RmiContext rmiContext, Nettention.Proud.ErrorType errorType , System.String filtering)
+        private bool Login_Response(Nettention.Proud.HostID remote, Nettention.Proud.RmiContext rmiContext, Nettention.Proud.ErrorType errorType, System.String filtering)
         {
             if (errorType != ErrorType.Ok)
             {
-                if(chatClientJoinFailedDelegate != null)
-                chatClientJoinFailedDelegate();
+                if (chatClientJoinFailedDelegate != null)
+                    chatClientJoinFailedDelegate();
                 return true;
             }
             SetUpFiltering(filtering, localFilePath);
-           
+
             SetUpChannel();
 
-            if(chatClientJoinCompleteDelegate != null)
+            if (chatClientJoinCompleteDelegate != null)
                 chatClientJoinCompleteDelegate();
 
             return true;
@@ -186,10 +188,10 @@ namespace Proud
 
         public void Add_Channel(System.String channelKey)
         {
-            if(netClient.HasServerConnection())
-                ChatProxy.ChannelJoin(HostID.HostID_Server , RmiContext.ReliableSend , channelKey);
-            
-            if(false == channelList.Contains(channelKey))
+            if (netClient.HasServerConnection())
+                ChatProxy.ChannelJoin(HostID.HostID_Server, RmiContext.ReliableSend, channelKey);
+
+            if (false == channelList.Contains(channelKey))
                 channelList.Add(channelKey);
         }
 
@@ -198,7 +200,7 @@ namespace Proud
             if (netClient.HasServerConnection() && channelList.Contains(channelKey))
                 ChatProxy.ChannelLeave(HostID.HostID_Server, RmiContext.ReliableSend, channelKey);
 
-            if(true == channelList.Contains(channelKey)) 
+            if (true == channelList.Contains(channelKey))
                 channelList.Remove(channelKey);
         }
 
@@ -207,7 +209,7 @@ namespace Proud
             if (false == netClient.HasServerConnection())
                 return;
 
-            foreach(var channelKey in channelList)
+            foreach (var channelKey in channelList)
                 ChatProxy.ChannelJoin(HostID.HostID_Server, RmiContext.ReliableSend, channelKey);
         }
 
@@ -217,12 +219,14 @@ namespace Proud
             return true;
         }
 
-        private void SetUpFiltering(System.String filtering , System.String filePath)
+        private void SetUpFiltering(System.String filtering, System.String filePath)
         {
             m_Filtering.RemoveFiltering();
-            System.String filterText = Proud.FileSync.GetCDNFile(filtering, filePath);
-            if(null != filterText)
+            System.String filterText = Proud.FileSync.GetCDNFile(filtering, Path.Combine(Application.persistentDataPath, filePath));
+            if (null != filterText)
                 m_Filtering.AddFiltering(filterText);
         }
     }
 }
+
+

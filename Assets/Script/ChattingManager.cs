@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Android;
 
 public class ChattingManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class ChattingManager : MonoBehaviour
     public GameObject accessPanel;
 
     public GameObject addChannelPanel;
+
+    public GameObject gameQuitPanel;
+    private bool active = false;
 
     private string nickname;
 
@@ -123,5 +127,25 @@ public class ChattingManager : MonoBehaviour
             return;
         }
         m_instance = GetComponent<ChattingManager>();
+    }
+
+    private void Update()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                active = !active;
+                gameQuitPanel.SetActive(active);
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                active = !active;
+                gameQuitPanel.SetActive(active);
+            }
+        }
     }
 }

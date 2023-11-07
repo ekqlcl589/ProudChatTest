@@ -82,6 +82,10 @@ namespace Proud
             }
             catch (Exception ex)
             {
+                Console.WriteLine("예외 유형: " + ex.GetType().ToString());
+                Console.WriteLine("파일 다운로드 중 오류 발생: " + ex.ToString());
+
+                Console.WriteLine("........");
                 Console.WriteLine("파일 다운로드 중 오류 발생: " + ex.Message);
             }
         }
