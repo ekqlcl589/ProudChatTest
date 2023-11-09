@@ -28,7 +28,7 @@ public class ChannelButton : MonoBehaviour
 
     public Button ButtonPrefab;
     public RectTransform Content; // 생성될 위치
-    public InputField channelInput;
+    public InputField channelInput; 
 
     private void OnClick()
     {
