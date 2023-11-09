@@ -8,11 +8,11 @@ using UnityEngine.Android;
 
 public class ChattingManager : MonoBehaviour
 {
-    public GameObject ChannelPanel;
+    //public GameObject ChannelPanel;
 
-    public GameObject nicknamePanel;
+    //public GameObject nicknamePanel;
 
-    public GameObject accessPanel;
+    //public GameObject accessPanel;
 
     public GameObject addChannelPanel;
 
@@ -87,29 +87,30 @@ public class ChattingManager : MonoBehaviour
         switch (channel)
         {
             case Channel.currentChannel:
-                ChannelPanel.SetActive(true);
-                nicknamePanel.SetActive(false);
-                accessPanel.SetActive(false);
+                //ChannelPanel.SetActive(true);
+                //nicknamePanel.SetActive(false);
+                //accessPanel.SetActive(false);
                 addChannelPanel.SetActive(false);
                 break;
 
             case Channel.nicknamePanel:
-                ChannelPanel.SetActive(false);
-                nicknamePanel.SetActive(true);
-                accessPanel.SetActive(false);
+                //ChannelPanel.SetActive(false);
+                //nicknamePanel.SetActive(true);
+                //accessPanel.SetActive(false);
                 addChannelPanel.SetActive(false);
                 break;
+
             case Channel.accessPanel:
-                ChannelPanel.SetActive(false);
-                nicknamePanel.SetActive(false);
-                accessPanel.SetActive(true);
+                //ChannelPanel.SetActive(false);
+                //nicknamePanel.SetActive(false);
+                //accessPanel.SetActive(true);
                 addChannelPanel.SetActive(false);
                 break;
 
             case Channel.addChannelPanel:
-                ChannelPanel.SetActive(false);
-                nicknamePanel.SetActive(false);
-                accessPanel.SetActive(false);
+               // ChannelPanel.SetActive(false);
+                //nicknamePanel.SetActive(false);
+                //accessPanel.SetActive(false);
                 addChannelPanel.SetActive(true);
                 break;
         }

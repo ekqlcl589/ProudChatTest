@@ -5,33 +5,19 @@ using UnityEngine.UI;
 
 public class ChannelScript : MonoBehaviour
 {
-    public InputField channelInput;
-
-    public Button chanelButton;
-
     // 추가할 채널의 패널을 추가하는 버튼
     public Button plusChannelButton;
+    public GameObject addChannelPanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        chanelButton.onClick.AddListener(AccessChannel);
         plusChannelButton.onClick.AddListener(PlusChannel);
     }
 
-    private void AccessChannel()
-    {
-        if(channelInput.text != string.Empty)
-        {
-            ChattingManager.Instance.SetChannel = channelInput.text;
-
-            ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.currentChannel);
-        }
-    }
-
-
     private void PlusChannel()
     {
-        ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.addChannelPanel);
+        addChannelPanel.SetActive(true);
+        //ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.addChannelPanel);
     }
 }

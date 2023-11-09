@@ -10,14 +10,12 @@ using static Proud.ChatClient;
 public class ChatScript : MonoBehaviour
 {
     public ProudChatComponent pchatComponent;
+
     public InputField inputMessage;
-
     public InputField whisperMessage;
-
     public InputField addChannelInput;
 
-    private string channelKey;
-    private string userNickname;
+    private string channelKey = "일반";
 
     public Button chatbutton;
 
@@ -30,35 +28,45 @@ public class ChatScript : MonoBehaviour
     private GameObject newTextObject; // textPrefab을 통해 생성될 text
     public RectTransform Content; // 생성될 위치
 
-    private void ButtonEvent()
+    private void Awake()
     {
-        if (inputMessage.text != null)
-            chatbutton.onClick.AddListener(ChattingType);
-
-        //chatbutton.onClick.AddListener(() => pchatComponent.Send_ChannelMsg(channelKey, inputMessage.text));
+        ChattingManager.Instance.SetChannel = channelKey;
     }
 
-    private void ChattingType()
+    // Start is called before the first frame update
+    void Start()
+    {
+        chatbutton.onClick.AddListener(ChattingType);
+        //chatbutton.onClick.AddListener(() => pchatComponent.Send_ChannelMsg(channelKey, inputMessage.text));
+
+        //pchatComponent.AddChannel(ChattingManager.Instance.SetChannel);
+        pchatComponent.m_ChannelMsg_Response_Event.AddListener(PopulateChannelMsg);
+        pchatComponent.m_SendMsg_Response_Event.AddListener(PopulateMsg);
+        addChanelButton.onClick.AddListener(AddChannel);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            ChattingType();
+        }
+    }
+
+    //private void OnApplicationQuit() // 이게 없으면? 게임이 종료 되도? 패널이 꺼지지 않아서? 남아 있다? 진짜? 
+    //{
+    //    gameObject.SetActive(false);
+    //}
+    private void ChattingType() // 함수 내용이 바껴서 이름 변경 해야 함 
     {
         if (!ChattingManager.Instance.IsWhisper)
         {
-            ChannelChat();
+            pchatComponent.Send_ChannelMsg(ChattingManager.Instance.SetChannel, inputMessage.text);
         }
         else
         {
-            UserChat();
+            pchatComponent.Send_Msg(whisperMessage.text, inputMessage.text);
         }
-    }
-    private void ChannelChat()
-    {
-        pchatComponent.Send_ChannelMsg(ChattingManager.Instance.SetChannel, inputMessage.text);
-
-        inputMessage.text = string.Empty;
-    }
-
-    private void UserChat()
-    {
-        pchatComponent.Send_Msg(whisperMessage.text, inputMessage.text);
 
         inputMessage.text = string.Empty;
     }
@@ -100,30 +108,6 @@ public class ChatScript : MonoBehaviour
             pchatComponent.AddChannel(ChattingManager.Instance.SetChannel);
 
             ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.currentChannel);
-        }
-    }
-
-    private void Awake()
-    {
-        ChattingManager.Instance.SetChannel = "일반";
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        ButtonEvent();
-        //pchatComponent.AddChannel(ChattingManager.Instance.SetChannel);
-        pchatComponent.m_ChannelMsg_Response_Event.AddListener(PopulateChannelMsg);
-        pchatComponent.m_SendMsg_Response_Event.AddListener(PopulateMsg);
-        addChanelButton.onClick.AddListener(AddChannel);
-
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Return)) 
-        {
-            ChattingType();
         }
     }
 }

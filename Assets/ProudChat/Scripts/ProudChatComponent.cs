@@ -113,7 +113,7 @@ public class ProudChatComponent : MonoBehaviour
         //유저는 직접 이 부분을 작성을 하셔야 합니다.
 
         //m_ChatClient.Init("계정 UUID", "프로젝트 UUID", "고유한 식별 값(고유한 닉네임 , 고유한 넘버링)", ChatClientInitComplete);
-        m_ChatClient.Init("8b7c358a-04a9-49f2-afab-eb443114ba14", "eb39b2f2-e69c-4d10-acac-2e09d27d519a", ChattingManager.Instance.SetNickname /*"DooD"*/, ChatClientInitComplete); ;
+        m_ChatClient.Init("8b7c358a-04a9-49f2-afab-eb443114ba14", "eb39b2f2-e69c-4d10-acac-2e09d27d519a", ChattingManager.Instance.SetNickname, ChatClientInitComplete); ;
         
     }
 

@@ -8,10 +8,6 @@ using UnityEngine.UI;
 
 public class ChannelButton : MonoBehaviour
 {
-    // 채널 옮겨다니는 버튼 관리하는 클래스 
-    // if 0 번째 버튼을 누르면 일반 채널 1번 쨰 채널은 길드 2 번째는 뭐 이런식
-    // 추가로 changechannelbutton을 통해 채널을 추가 하면 button도 늘어나는 식으로 
-
     public Button publicChatButton;
     public Button GuildChatButton;
     public Button WhisperChatButton;
@@ -36,11 +32,14 @@ public class ChannelButton : MonoBehaviour
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;
 
         // 가져온 버튼의 텍스트에 적용된 텍스트를 현재 채널의 키 값으로 저장 
-        ChattingManager.Instance.SetChannel = clickObject.GetComponentInChildren<Text>().text;
+        if( clickObject != null )
+        {
+            ChattingManager.Instance.SetChannel = clickObject.GetComponentInChildren<Text>().text;
 
-        ProudChatComponent.AddChannel(ChattingManager.Instance.SetChannel);
+            ProudChatComponent.AddChannel(ChattingManager.Instance.SetChannel);
 
-        ChattingManager.Instance.IsWhisper = false;
+            ChattingManager.Instance.IsWhisper = false;
+        }
     }
 
     private void OnWhisper()
@@ -50,7 +49,7 @@ public class ChannelButton : MonoBehaviour
 
     }
 
-    private void whisper()
+    private void OffWhisper()
     {
         ChattingManager.Instance.IsWhisper = active;
 
@@ -59,20 +58,21 @@ public class ChannelButton : MonoBehaviour
 
     public void AddChannel()
     {
-        newChannelButton = Instantiate(ButtonPrefab, Content.transform);
+        if(ButtonPrefab != null)
+        {
+            newChannelButton = Instantiate(ButtonPrefab, Content.transform);
 
-        newChannelButton.GetComponentInChildren<Text>().text = channelInput.text;
+            newChannelButton.GetComponentInChildren<Text>().text = channelInput.text;
 
-        ChattingManager.Instance.SetChannel = newChannelButton.GetComponentInChildren<Text>().text;
+            ChattingManager.Instance.SetChannel = newChannelButton.GetComponentInChildren<Text>().text;
 
-        newChannelButton.onClick.AddListener(OnClick);
-        //newChannelButton.gameObject.SetActive(true);
+            newChannelButton.onClick.AddListener(OnClick);
 
-        channels.Push(newChannelButton);
-        ProudChatComponent.AddChannel(ChattingManager.Instance.SetChannel);
+            channels.Push(newChannelButton);
+            ProudChatComponent.AddChannel(ChattingManager.Instance.SetChannel);
 
-        ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.currentChannel);
-
+            ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.currentChannel); 
+        }
     }
 
     public void LeaveChannel()
@@ -85,14 +85,24 @@ public class ChannelButton : MonoBehaviour
             ChattingManager.Instance.SetChannel = publicChatButton.GetComponentInChildren<Text>().text;
         }
     }
+
+    private void Exceptionhandling()
+    {
+        if(publicChatButton ==  null)
+        {
+            publicChatButton = GameObject.Find("PublicChatButton").GetComponent<Button>();
+        }
+    }
     private void Start()
     {
+        Exceptionhandling();
+
         publicChatButton.GetComponentInChildren<Text>().text = ChattingManager.Instance.SetChannel;
 
         publicChatButton.onClick.AddListener(OnClick);
         GuildChatButton.onClick.AddListener(OnClick);
         WhisperChatButton.onClick.AddListener(OnWhisper);
-        whisperButton.onClick.AddListener(whisper);
+        whisperButton.onClick.AddListener(OffWhisper);
     }
 
 }
