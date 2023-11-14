@@ -11,12 +11,8 @@ public class ChannelButtonPanelScript : MonoBehaviour
 {
     public ProudChatComponent ProudChatComponent;
 
+    // 이거 일단 leaveChanel 때문에 보류 
     public Button publicChatButton;
-    public Button GuildChatButton;
-    public Button WhisperChatButton;
-
-    public Button plusChannelButton;
-    public Button whisperButton;
 
     public GameObject addChannelPanel;
     public GameObject whisperPanel;
@@ -29,26 +25,14 @@ public class ChannelButtonPanelScript : MonoBehaviour
 
     private Stack<Button> channels = new Stack<Button>();
 
-    private void Start()
-    {
-        //publicChatButton.GetComponentInChildren<Text>().text = ChattingManager.Instance.SetChannel;
-
-        publicChatButton.onClick.AddListener(OnClick);
-        GuildChatButton.onClick.AddListener(OnClick);
-        WhisperChatButton.onClick.AddListener(OnWhisperPanel);
-        whisperButton.onClick.AddListener(OffWhisperPanel);
-        plusChannelButton.onClick.AddListener(PlusChannelActive);
-    }
-
-    private void OnClick()
+    public void OnClick()
     {
         // 버튼 클릭 시 현재 클릭된 버튼의 정보를 가져오고
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;
 
+        string buttonText = clickObject.name; // 이건 버튼의 이름 그 자체를 가져옴
+        
         // 가져온 버튼의 텍스트에 적용된 텍스트를 현재 채널의 키 값으로 저장 
-        if (clickObject.GetComponent<Button>() == null)
-            return;
-
         ChattingManager.Instance.SetChannel = clickObject.GetComponentInChildren<Text>().text;
 
         ProudChatComponent.AddChannel(ChattingManager.Instance.SetChannel);
@@ -56,19 +40,19 @@ public class ChannelButtonPanelScript : MonoBehaviour
         ChattingManager.Instance.IsWhisper = false;
     }
 
-    private void OnWhisperPanel()
+    public void OnWhisperPanel()
     {
         whisperPanel.SetActive(true);
     }
 
-    private void OffWhisperPanel()
+    public void OffWhisperPanel()
     {
         ChattingManager.Instance.IsWhisper = true;
 
        whisperPanel.SetActive(false);
     }
 
-    private void PlusChannelActive()
+    public void PlusChannelActive()
     {
         addChannelPanel.SetActive(true);
     }

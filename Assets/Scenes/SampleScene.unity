@@ -128,6 +128,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5165708628432360186, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
   m_PrefabInstance: {fileID: 1959669666}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &284646382 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5033536373929722990, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
+  m_PrefabInstance: {fileID: 1959669666}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93a1fee180a8194eb22d598a2543f8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &658815759 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 658815759, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
@@ -495,12 +506,20 @@ PrefabInstance:
       propertyPath: ChattingPanel
       value: 
       objectReference: {fileID: 33729008}
+    - target: {fileID: 1823871031, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
+      propertyPath: pchatComponent
+      value: 
+      objectReference: {fileID: 284646382}
     - target: {fileID: 1909487931, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1909487931, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592384078961366287, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2237630131763668469, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}

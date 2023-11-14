@@ -10,14 +10,7 @@ public class NicknamePanelScript : MonoBehaviour
 
     public InputField nicknamelInput;
 
-    public Button enterButton;
-
-    private void Start()
-    {
-        enterButton.onClick.AddListener(SetNickname);
-    }
-
-    private void SetNickname()
+    public void SetNickname()
     {
         if (nicknamelInput.text == null)
             return;

@@ -18,12 +18,9 @@ public class ChattingManager : MonoBehaviour
     {
         get
         {
-            if (!m_instance)
+            if (m_instance is null)
             {
                 m_instance = FindObjectOfType(typeof(ChattingManager)) as ChattingManager;
-
-                if (!m_instance)
-                    Debug.LogWarning("현재 인스턴스가 레벨에 없습니다");
             }
             return m_instance;
         }
@@ -36,7 +33,6 @@ public class ChattingManager : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-
             return;
         }
     }

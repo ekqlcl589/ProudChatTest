@@ -13,8 +13,6 @@ public class ChattingPanelScript : MonoBehaviour
     public InputField inputMessage;
     public InputField whisperMessage;
 
-    public Button chatbutton;
-
     public GameObject textPrefab; // text 정보가 담긴 생성될 ui
     public RectTransform Content; // 생성될 위치
     private GameObject newTextObject; // textPrefab을 통해 생성될 text
@@ -24,21 +22,16 @@ public class ChattingPanelScript : MonoBehaviour
     void Start()
     {
         ChattingManager.Instance.SetChannel = channelKey;
-        chatbutton.onClick.AddListener(SendMsgType);
+        // 이것도 이렇게 까지 예외 필요 없게
+        //if (pchatComponent == null) 
+        //{
+        //    pchatComponent = GameObject.Find("instance").GetComponent<ProudChatComponent>();
 
-        if (pchatComponent == null)
-        {
-            pchatComponent = GameObject.Find("instance").GetComponent<ProudChatComponent>();
-
-            if(pchatComponent == null )
-            {
-                Debug.LogError("ProudChatComponent를 찾을 수 없습니다");
-            }
-        }
-
-        //pchatComponent.AddChannel(ChattingManager.Instance.SetChannel);
-        pchatComponent.m_ChannelMsg_Response_Event.AddListener(PopulateChannelMsg);
-        pchatComponent.m_SendMsg_Response_Event.AddListener(PopulateMsg);
+        //    if(pchatComponent == null )
+        //    {
+        //        Debug.LogError("ProudChatComponent를 찾을 수 없습니다");
+        //    }
+        //}
     }
 
     void Update()
@@ -49,9 +42,9 @@ public class ChattingPanelScript : MonoBehaviour
         }
     }
 
-    private void SendMsgType() 
+    public void SendMsgType() 
     {
-        if (!ChattingManager.Instance.IsWhisper)
+        if (ChattingManager.Instance.IsWhisper is false)
         {
             pchatComponent.Send_ChannelMsg(ChattingManager.Instance.SetChannel, inputMessage.text);
         }
@@ -63,7 +56,7 @@ public class ChattingPanelScript : MonoBehaviour
         inputMessage.text = string.Empty;
     }
 
-    private void PopulateChannelMsg(string Channel, string uniqueID, string message)
+    public void PopulateChannelMsg(string Channel, string uniqueID, string message)
     {
         if(textPrefab != null)
         {
@@ -79,7 +72,7 @@ public class ChattingPanelScript : MonoBehaviour
         }
     }
 
-    private void PopulateMsg(string uniqueID, string message)
+    public void PopulateMsg(string uniqueID, string message)
     {
         if(textPrefab != null)
         {
