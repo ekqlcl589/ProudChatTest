@@ -4,60 +4,42 @@ using System.Xml;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static ChatScript;
-using static Proud.ChatClient;
+//using static ChatPanelScript;
 
-public class ChatScript : MonoBehaviour
+public class ChattingPanelScript : MonoBehaviour
 {
     public ProudChatComponent pchatComponent;
 
     public InputField inputMessage;
     public InputField whisperMessage;
-    public InputField addChannelInput;
-
-    private string channelKey = "일반";
 
     public Button chatbutton;
 
-    // 진짜 채널에 입장하는 버튼
-    public Button addChanelButton;
-
-    public Button whisperButton;
-
     public GameObject textPrefab; // text 정보가 담긴 생성될 ui
-    private GameObject newTextObject; // textPrefab을 통해 생성될 text
     public RectTransform Content; // 생성될 위치
+    private GameObject newTextObject; // textPrefab을 통해 생성될 text
 
-    private void Awake()
-    {
-        ChattingManager.Instance.SetChannel = channelKey;
-    }
-
+    private string channelKey = "일반";
     // Start is called before the first frame update
     void Start()
     {
-        chatbutton.onClick.AddListener(ChattingType);
-        //chatbutton.onClick.AddListener(() => pchatComponent.Send_ChannelMsg(channelKey, inputMessage.text));
+        ChattingManager.Instance.SetChannel = channelKey;
+        chatbutton.onClick.AddListener(SendMsgType);
 
         //pchatComponent.AddChannel(ChattingManager.Instance.SetChannel);
         pchatComponent.m_ChannelMsg_Response_Event.AddListener(PopulateChannelMsg);
         pchatComponent.m_SendMsg_Response_Event.AddListener(PopulateMsg);
-        addChanelButton.onClick.AddListener(AddChannel);
     }
 
-    private void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            ChattingType();
+            SendMsgType();
         }
     }
 
-    //private void OnApplicationQuit() // 이게 없으면? 게임이 종료 되도? 패널이 꺼지지 않아서? 남아 있다? 진짜? 
-    //{
-    //    gameObject.SetActive(false);
-    //}
-    private void ChattingType() // 함수 내용이 바껴서 이름 변경 해야 함 
+    private void SendMsgType() 
     {
         if (!ChattingManager.Instance.IsWhisper)
         {
@@ -95,19 +77,5 @@ public class ChatScript : MonoBehaviour
         texts[1].text = message;
         
         texts[2].text = string.Empty;
-    }
-
-    private void AddChannel()
-    {
-        if (addChannelInput.text != string.Empty)
-        {
-            ChattingManager.Instance.SetChannel = addChannelInput.text;
-
-            channelKey = ChattingManager.Instance.SetChannel;
-
-            pchatComponent.AddChannel(ChattingManager.Instance.SetChannel);
-
-            ChattingManager.Instance.ActiveChannel(ChattingManager.Channel.currentChannel);
-        }
     }
 }
