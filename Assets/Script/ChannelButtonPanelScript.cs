@@ -46,14 +46,14 @@ public class ChannelButtonPanelScript : MonoBehaviour
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;
 
         // 가져온 버튼의 텍스트에 적용된 텍스트를 현재 채널의 키 값으로 저장 
-        if( clickObject != null )
-        {
-            ChattingManager.Instance.SetChannel = clickObject.GetComponentInChildren<Text>().text;
+        if (clickObject.GetComponent<Button>() == null)
+            return;
 
-            ProudChatComponent.AddChannel(ChattingManager.Instance.SetChannel);
+        ChattingManager.Instance.SetChannel = clickObject.GetComponentInChildren<Text>().text;
 
-            ChattingManager.Instance.IsWhisper = false;
-        }
+        ProudChatComponent.AddChannel(ChattingManager.Instance.SetChannel);
+
+        ChattingManager.Instance.IsWhisper = false;
     }
 
     private void OnWhisperPanel()
@@ -79,20 +79,21 @@ public class ChannelButtonPanelScript : MonoBehaviour
         {
             newChannelButton = Instantiate(ButtonPrefab, Content.transform);
 
-            if(channelInput.text != null )
-            {
-                newChannelButton.GetComponentInChildren<Text>().text = channelInput.text;
+            if (channelInput.text == null || Content == null)
+                return;
 
-                ChattingManager.Instance.SetChannel = newChannelButton.GetComponentInChildren<Text>().text;
+            newChannelButton.GetComponentInChildren<Text>().text = channelInput.text;
 
-                newChannelButton.onClick.AddListener(OnClick);
+            ChattingManager.Instance.SetChannel = newChannelButton.GetComponentInChildren<Text>().text;
 
-                channels.Push(newChannelButton);
+            newChannelButton.onClick.AddListener(OnClick);
 
-                ProudChatComponent.AddChannel(ChattingManager.Instance.SetChannel);
+            channels.Push(newChannelButton);
 
-                addChannelPanel.SetActive(false);
-            }
+            ProudChatComponent.AddChannel(ChattingManager.Instance.SetChannel);
+
+            addChannelPanel.SetActive(false);
+
         }
     }
 

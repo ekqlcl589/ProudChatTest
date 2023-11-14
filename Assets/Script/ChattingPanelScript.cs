@@ -26,6 +26,16 @@ public class ChattingPanelScript : MonoBehaviour
         ChattingManager.Instance.SetChannel = channelKey;
         chatbutton.onClick.AddListener(SendMsgType);
 
+        if (pchatComponent == null)
+        {
+            pchatComponent = GameObject.Find("instance").GetComponent<ProudChatComponent>();
+
+            if(pchatComponent == null )
+            {
+                Debug.LogError("ProudChatComponent를 찾을 수 없습니다");
+            }
+        }
+
         //pchatComponent.AddChannel(ChattingManager.Instance.SetChannel);
         pchatComponent.m_ChannelMsg_Response_Event.AddListener(PopulateChannelMsg);
         pchatComponent.m_SendMsg_Response_Event.AddListener(PopulateMsg);
@@ -55,27 +65,33 @@ public class ChattingPanelScript : MonoBehaviour
 
     private void PopulateChannelMsg(string Channel, string uniqueID, string message)
     {
-        newTextObject = (GameObject)Instantiate(textPrefab, Content.transform);
+        if(textPrefab != null)
+        {
+            newTextObject = (GameObject)Instantiate(textPrefab, Content.transform);
 
-        Text[] texts = newTextObject.GetComponentsInChildren<Text>();
-        // channel
-        texts[0].text = "<" + Channel + ">";
-        // id
-        texts[1].text = uniqueID + " :";
-        // msg
-        texts[2].text = message;
+            Text[] texts = newTextObject.GetComponentsInChildren<Text>();
+            // channel
+            texts[0].text = "<" + Channel + ">";
+            // id
+            texts[1].text = uniqueID + " :";
+            // msg
+            texts[2].text = message;
+        }
     }
 
     private void PopulateMsg(string uniqueID, string message)
     {
-        newTextObject = (GameObject)Instantiate(textPrefab, Content.transform);
+        if(textPrefab != null)
+        {
+            newTextObject = (GameObject)Instantiate(textPrefab, Content.transform);
 
-        Text[] texts = newTextObject.GetComponentsInChildren<Text>();
-        // id
-        texts[0].text = "<귓속말> " + uniqueID + " :";
-        // msg
-        texts[1].text = message;
+            Text[] texts = newTextObject.GetComponentsInChildren<Text>();
+            // id
+            texts[0].text = "<귓속말> " + uniqueID + " :";
+            // msg
+            texts[1].text = message;
         
-        texts[2].text = string.Empty;
+            texts[2].text = string.Empty;
+        }
     }
 }
