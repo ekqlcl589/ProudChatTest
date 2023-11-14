@@ -455,9 +455,33 @@ PrefabInstance:
       propertyPath: gameQuitPanel
       value: 
       objectReference: {fileID: 658815759}
+    - target: {fileID: 754522752, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1541730868}
+    - target: {fileID: 754522752, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReturnGane
+      objectReference: {fileID: 0}
+    - target: {fileID: 754522752, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChattingEscapeScript, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 761194610, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1048512517, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1541730868}
+    - target: {fileID: 1048512517, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GameQuit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1048512517, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChattingEscapeScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1275732972, guid: c9ea637e05cf7ab4bb411ec01ed6fc75, type: 3}
       propertyPath: m_IsActive

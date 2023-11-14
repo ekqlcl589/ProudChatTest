@@ -39,7 +39,6 @@ public class ChattingManager : MonoBehaviour
 
             return;
         }
-        //m_instance = GetComponent<ChattingManager>();
     }
 
     public string SetNickname

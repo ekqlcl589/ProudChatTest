@@ -33,7 +33,8 @@ public class ChattingEscapeScript : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_ANDROID
         Application.Quit(); // 어플리케이션 종료
-
+#else
+        Application.Quit(0);
 #endif
     }
 

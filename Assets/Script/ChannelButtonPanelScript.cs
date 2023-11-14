@@ -31,7 +31,7 @@ public class ChannelButtonPanelScript : MonoBehaviour
 
     private void Start()
     {
-        publicChatButton.GetComponentInChildren<Text>().text = ChattingManager.Instance.SetChannel;
+        //publicChatButton.GetComponentInChildren<Text>().text = ChattingManager.Instance.SetChannel;
 
         publicChatButton.onClick.AddListener(OnClick);
         GuildChatButton.onClick.AddListener(OnClick);
